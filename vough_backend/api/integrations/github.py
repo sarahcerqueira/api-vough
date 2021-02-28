@@ -11,7 +11,11 @@ class GithubApi:
 
         :login: login da organização no Github
         """
-        return {}
+
+        session = requests.Session()
+        orgs = session.get(API_URL + '/orgs/'+ login)
+
+        return orgs
 
     def get_organization_public_members(self, login: str) -> int:
         """Retorna todos os membros públicos de uma organização
@@ -19,3 +23,5 @@ class GithubApi:
         :login: login da organização no Github
         """
         return 0
+
+    
