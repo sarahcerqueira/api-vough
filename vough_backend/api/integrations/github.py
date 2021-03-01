@@ -20,7 +20,7 @@ class GithubApi:
         session = requests.Session()
         result = session.get(self.API_URL + '/orgs/'+ login, headers=self.autenticacao)
 
-        if(result.status_code == 404)
+        if result.status_code == 404:
             return None
        
         return   json.loads(result.text)
@@ -33,7 +33,7 @@ class GithubApi:
         session = requests.Session()
         result = session.get(self.API_URL + '/orgs/'+ login +'/public_members', headers=self.autenticacao)
 
-        if(result.status_code == 404)
+        if result.status_code == 404:
             return None
        
 
