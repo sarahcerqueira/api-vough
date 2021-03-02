@@ -14,7 +14,7 @@ from api.models import Organization
 
 class OrganizationViewSet(viewsets.ModelViewSet):
 
-    queryset = models.Organization.objects.all()
+    queryset = models.Organization.objects.all().order_by('-score')
     serializer_class = serializers.OrganizationSerializer
     lookup_field = "login"
 
@@ -41,4 +41,7 @@ class OrganizationViewSet(viewsets.ModelViewSet):
         if org[0] != 0:
             return Response(status=204)
         
+        return Response(status=404)
+
+    def create(self, request):
         return Response(status=404)
