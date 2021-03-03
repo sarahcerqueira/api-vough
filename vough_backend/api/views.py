@@ -12,13 +12,13 @@ from api.models import Organization
 # 4 - Retornar os dados de organizações ordenados pelo score na listagem da API
 
 
-class OrganizationViewSet(viewsets.ModelViewSet):
+class OrganizationViewSet (viewsets.ModelViewSet):
 
     queryset = models.Organization.objects.all().order_by('-score')
     serializer_class = serializers.OrganizationSerializer
     lookup_field = "login"
 
-    def retrieve(self, request, login=None):
+    def retrieve (self, request, login=None):
         
         gitapi = GithubApi()
         result = gitapi.get_organization(login)
@@ -33,7 +33,7 @@ class OrganizationViewSet(viewsets.ModelViewSet):
         
         return Response(status=404)
 
-    def destroy(self, request, login=None):
+    def destroy (self, request, login=None):
         """ Remove organização.
         """
         org = Organization.objects.filter(login=login).delete()
@@ -45,5 +45,10 @@ class OrganizationViewSet(viewsets.ModelViewSet):
     
     def create (self, request):
         """ Retorna erro ao tenta fazer um POST
+        """
+        return Response(status=405)
+
+    def update (self, request, login=None):
+        """ Retorna erro ao tenta fazer um PUT
         """
         return Response(status=405)
