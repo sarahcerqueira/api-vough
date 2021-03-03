@@ -19,29 +19,31 @@ class OrganizationViewSet(viewsets.ModelViewSet):
     lookup_field = "login"
 
     def retrieve(self, request, login=None):
+        
+        gitapi = GithubApi()
+        result = gitapi.get_organization(login)
 
-        if login != None:
-            gitapi = GithubApi()
-            result = gitapi.get_organization(login)
-
-            if result != None:
-                org = Organization()
-                org.login = login
-                org.name = result.get('name')
-                org.score = result.get('public_repos') + gitapi.get_organization_public_members(login)
-                org.save()
-                return Response(serializers.OrganizationSerializer(org).data)
-            else:
-                return Response(status=404)
-
-        return Response({})
+        if result != None:
+            org = Organization()
+            org.login = login
+            org.name = result.get('name')
+            org.score = result.get('public_repos') + gitapi.get_organization_public_members(login)
+            org.save()
+            return Response(serializers.OrganizationSerializer(org).data)
+        
+        return Response(status=404)
 
     def destroy(self, request, login=None):
+        """ Remove organização.
+        """
         org = Organization.objects.filter(login=login).delete()
+
         if org[0] != 0:
             return Response(status=204)
         
         return Response(status=404)
-
-    def create(self, request):
-        return Response(status=404)
+    
+    def create (self, request):
+        """ Retorna erro ao tenta fazer um POST
+        """
+        return Response(status=405)
