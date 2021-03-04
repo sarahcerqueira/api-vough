@@ -83,18 +83,13 @@ REST_FRAMEWORK = {
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-'''
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
     }
-}'''
-
-from dj_database_url import parse as dburl
-default_dburl = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
-
-DATABASES = {'default': config('DATABASE_URL', default=default_dburl, cast=dburl),}
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
