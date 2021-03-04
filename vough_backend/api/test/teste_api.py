@@ -8,7 +8,7 @@ from django.test import TestCase
 
 class ApiTest(APITestCase):
 
-    def get_orgs_teste(self):
+    def test_get_orgs(self):
 
         url = reverse('/api/orgs/teste')
         data = {}
@@ -47,7 +47,7 @@ class ApiTest(APITestCase):
         self.assertEqual(json.loads(response.content), [{ 'login': 'collectiveidea', 'name': 'Collective Idea','score': 165}, { 'login': 'galaxycats', 'name': 'Galaxy Cats','score': 45}])
 
 
-    def delete_orgs_teste(self):
+    def teste_delete_orgs_teste(self):
 
         url = reverse('/api/orgs/teste')
         data = {}
