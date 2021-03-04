@@ -25,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '38sg$ey_)-q^8bs(ns&bc%_@%)&x9iha47pv5-p8l1t19f7&8g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["api-vough.herokuapp.com", "localhost:8000"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
