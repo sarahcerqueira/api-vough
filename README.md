@@ -1,5 +1,6 @@
 # vough_backend
 
+https://api-vough.herokuapp.com/api
 
 ### GET /api/orgs/<login>
 	Busca uma determinada organização através do login. Se a organização for encontrada no Github, ela é salva no banco de dados, e é retornado um json com o login, nome e score.
