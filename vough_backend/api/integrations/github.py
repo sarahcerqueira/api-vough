@@ -22,8 +22,11 @@ class GithubApi:
 
         if result.status_code == 404:
             return None
-       
-        return   json.loads(result.text)
+
+        elif result.status_code >= 400 and result.status_code <= 499:
+            return 403
+
+        return  json.loads(result.text)
 
     def get_organization_public_members(self, login: str) -> int:
         """Retorna todos os membros públicos de uma organizaçãoexit
@@ -35,7 +38,9 @@ class GithubApi:
 
         if result.status_code == 404:
             return None
-       
+
+        elif result.status_code >= 400 and result.status_code <= 499:
+            return 403
 
         orgs = json.loads(result.text)
         length = len(orgs)

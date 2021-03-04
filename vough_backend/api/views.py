@@ -19,15 +19,20 @@ class OrganizationViewSet (viewsets.ModelViewSet):
     lookup_field = "login"
 
     def retrieve (self, request, login=None):
-        
+        """ Se a organização existe, retorna, senão erro 404.
+        """
         gitapi = GithubApi()
         result = gitapi.get_organization(login)
+        public_members = gitapi.get_organization_public_members(login)
 
-        if result != None:
+        if result == 403 or public_members == 403:
+            return Response(status=503)
+
+        elif result != None:
             org = Organization()
             org.login = login
             org.name = result.get('name')
-            org.score = result.get('public_repos') + gitapi.get_organization_public_members(login)
+            org.score = result.get('public_repos') + public_members
             org.save()
             return Response(serializers.OrganizationSerializer(org).data)
         
@@ -50,5 +55,10 @@ class OrganizationViewSet (viewsets.ModelViewSet):
 
     def update (self, request, login=None):
         """ Retorna erro ao tenta fazer um PUT
+        """
+        return Response(status=405)
+
+    def partial_update (self, request, login=None):
+        """ Retorna erro ao tenta fazer um PATCH
         """
         return Response(status=405)
