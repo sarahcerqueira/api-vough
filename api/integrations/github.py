@@ -5,7 +5,8 @@ import json
 
 class GithubApi:
     API_URL = os.environ.get("GITHUB_API_URL", "https://api.github.com")
-    GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "3171f52300b31637b69828731e680c848b6eb7ee")
+    #GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "3171f52300b31637b69828731e680c848b6eb7ee")
+    GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "5c305526a1b9a2430a0aacd9fac483d6e1db13bd")
 
     def __init__(self):
         self.autenticacao = {'Authorization': 'token' + self.GITHUB_TOKEN}

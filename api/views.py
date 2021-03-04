@@ -25,9 +25,11 @@ class OrganizationViewSet (viewsets.ModelViewSet):
         result = gitapi.get_organization(login)
         public_members = gitapi.get_organization_public_members(login)
 
+        #Se alguma requisição retornar 403 significa que o GitHub bloqueo temporariamente
         if result == 403 or public_members == 403:
             return Response(status=503)
 
+        #Se a requisição existe salva no banco de dados
         elif result != None:
             org = Organization()
             org.login = login
